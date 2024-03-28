@@ -1,0 +1,17 @@
+//  Prisma 建模 具体实例 代表实体数据表的映射关联，Prisma通过Migrate映射到数据库表
+// 感觉和java中的 @Entity 相似
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  posts Post[]
+}
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean @default(false)
+  author    User    @relation(fields: [authorId], references: [id])
+  authorId  Int
+}
